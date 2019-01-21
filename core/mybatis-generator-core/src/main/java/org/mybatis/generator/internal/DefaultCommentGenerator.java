@@ -1,5 +1,5 @@
 /**
- *    Copyright 2006-2017 the original author or authors.
+ *    Copyright 2006-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -71,6 +71,30 @@ public class DefaultCommentGenerator implements CommentGenerator {
     @Override
     public void addJavaFileComment(CompilationUnit compilationUnit) {
         // add no file level comments by default
+    }
+
+    protected boolean isSuppressDate() {
+        return suppressDate;
+    }
+
+    protected void setSuppressDate(boolean suppressDate) {
+        this.suppressDate = suppressDate;
+    }
+
+    protected boolean isSuppressAllComments() {
+        return suppressAllComments;
+    }
+
+    protected void setSuppressAllComments(boolean suppressAllComments) {
+        this.suppressAllComments = suppressAllComments;
+    }
+
+    protected boolean isAddRemarkComments() {
+        return addRemarkComments;
+    }
+
+    protected void setAddRemarkComments(boolean addRemarkComments) {
+        this.addRemarkComments = addRemarkComments;
     }
 
     /**
