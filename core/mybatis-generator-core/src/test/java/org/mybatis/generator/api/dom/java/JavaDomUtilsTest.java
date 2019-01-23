@@ -1,5 +1,5 @@
 /**
- *    Copyright 2006-2017 the original author or authors.
+ *    Copyright 2006-2019 the original author or authors.
  *
  *    Licensed under the Apache License, Version 2.0 (the "License");
  *    you may not use this file except in compliance with the License.
@@ -79,12 +79,28 @@ public class JavaDomUtilsTest {
     }
 
     @Test
+    public void testGenericTypeWithAllImportedLeijie() {
+        Interface interfaze = new Interface(new FullyQualifiedJavaType("com.foo.UserMapper"));
+
+        interfaze.addImportedType(new FullyQualifiedJavaType("java.util.Map"));
+        interfaze.addImportedType(new FullyQualifiedJavaType("java.util.List"));
+        interfaze.addImportedType(new FullyQualifiedJavaType("com.beeant.dto.User"));
+        interfaze.addImportedType(new FullyQualifiedJavaType("java.math.BigDecimal"));
+
+        FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType("java.util.Map<java.math.BigDecimal, java.util.List<com.beeant.dto.User>>");
+        assertEquals("Map<BigDecimal, List<User>>",
+            JavaDomUtils.calculateTypeName(interfaze, fqjt));
+    }
+
+    @Test
     public void testGenericTypeWithWildCardAllImported() {
         Interface interfaze = new Interface(new FullyQualifiedJavaType("com.foo.UserMapper"));
 
         interfaze.addImportedType(new FullyQualifiedJavaType("java.util.Map"));
         interfaze.addImportedType(new FullyQualifiedJavaType("java.util.List"));
         interfaze.addImportedType(new FullyQualifiedJavaType("com.beeant.dto.User"));
+        interfaze.addImportedType(new FullyQualifiedJavaType("io.swagger.annotations.ApiModelProperty"));
+        interfaze.addImportedType(new FullyQualifiedJavaType("io.swagger.annotations.ApiModel"));
         interfaze.addImportedType(new FullyQualifiedJavaType("java.math.BigDecimal"));
         
         FullyQualifiedJavaType fqjt = new FullyQualifiedJavaType("java.util.Map<java.math.BigDecimal, java.util.List<? extends com.beeant.dto.User>>");

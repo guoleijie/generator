@@ -53,6 +53,19 @@ public class SwaggerCommentGenerator extends DefaultCommentGenerator {
     addJavadocTag(topLevelClass, true);
 
     topLevelClass.addJavaDocLine(" */");
+
+    if (isAddRemarkComments()) {
+      if (StringUtility.stringHasValue(remarks)) {
+        String[] remarkLines = remarks.split(System.getProperty("line.separator"));
+        StringBuffer tempLine = new StringBuffer();
+        for (String remarkLine : remarkLines) {
+          tempLine.append(remarkLine).append(" ");
+        }
+        topLevelClass.addJavaDocLine("@ApiModel(value = \"" + tempLine.toString() + "\")");
+      } else {
+        topLevelClass.addJavaDocLine("@ApiModel(value = \"\")");
+      }
+    }
   }
 
   @Override
